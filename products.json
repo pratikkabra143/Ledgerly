@@ -1,0 +1,1090 @@
+[
+  {
+    "name": "2 Ltr Butterscotch Crunch (Rs.280)",
+    "net_qty": "2 LTR",
+    "pcs_per_box": 1,
+    "selling_rate": 205.13,
+    "purchase_rate": 179.49,
+    "category": "Bulk Pack"
+  },
+  {
+    "name": "2 Ltr Mast Vanilla (Rs.250)",
+    "net_qty": "2 LTR",
+    "pcs_per_box": 1,
+    "selling_rate": 183.15,
+    "purchase_rate": 160.26,
+    "category": "Bulk Pack"
+  },
+  {
+    "name": "4 Ltr American Nuts (Rs.800)",
+    "net_qty": "4 LTR",
+    "pcs_per_box": 1,
+    "selling_rate": 564.37,
+    "purchase_rate": 493.83,
+    "category": "Bulk Pack"
+  },
+  {
+    "name": "4 Ltr Anjir Badam (Rs.800)",
+    "net_qty": "4 LTR",
+    "pcs_per_box": 1,
+    "selling_rate": 564.37,
+    "purchase_rate": 493.83,
+    "category": "Bulk Pack"
+  },
+  {
+    "name": "4 Ltr Badam Masti (Rs.380)",
+    "net_qty": "4 LTR",
+    "pcs_per_box": 1,
+    "selling_rate": 268.08,
+    "purchase_rate": 234.57,
+    "category": "Bulk Pack"
+  },
+  {
+    "name": "4 Ltr Belgium Chocolate (Rs.800)",
+    "net_qty": "4 LTR",
+    "pcs_per_box": 1,
+    "selling_rate": 564.37,
+    "purchase_rate": 493.83,
+    "category": "Bulk Pack"
+  },
+  {
+    "name": "4 Ltr Black Current (Rs.600)",
+    "net_qty": "4 LTR",
+    "pcs_per_box": 1,
+    "selling_rate": 423.28,
+    "purchase_rate": 370.37,
+    "category": "Bulk Pack"
+  },
+  {
+    "name": "4 Ltr Butterscotch Crunch (Rs.540)",
+    "net_qty": "4 LTR",
+    "pcs_per_box": 1,
+    "selling_rate": 380.95,
+    "purchase_rate": 333.33,
+    "category": "Bulk Pack"
+  },
+  {
+    "name": "4 Ltr Choco Chips (Rs.650)",
+    "net_qty": "4 LTR",
+    "pcs_per_box": 1,
+    "selling_rate": 458.55,
+    "purchase_rate": 401.23,
+    "category": "Bulk Pack"
+  },
+  {
+    "name": "4 Ltr Chocolate Fudge (Rs.540)",
+    "net_qty": "4 LTR",
+    "pcs_per_box": 1,
+    "selling_rate": 380.95,
+    "purchase_rate": 333.33,
+    "category": "Bulk Pack"
+  },
+  {
+    "name": "4 Ltr Coffee Break (Rs.600)",
+    "net_qty": "4 LTR",
+    "pcs_per_box": 1,
+    "selling_rate": 423.28,
+    "purchase_rate": 370.37,
+    "category": "Bulk Pack"
+  },
+  {
+    "name": "4 Ltr Cream Balls (Rs.900)",
+    "net_qty": "4 LTR",
+    "pcs_per_box": 1,
+    "selling_rate": 634.92,
+    "purchase_rate": 555.56,
+    "category": "Bulk Pack"
+  },
+  {
+    "name": "4 Ltr Dry Fruit Malai Kulfi (Rs.800)",
+    "net_qty": "4 LTR",
+    "pcs_per_box": 1,
+    "selling_rate": 564.37,
+    "purchase_rate": 493.83,
+    "category": "Bulk Pack"
+  },
+  {
+    "name": "4 Ltr Fresh Pineapple (Rs.650)",
+    "net_qty": "4 LTR",
+    "pcs_per_box": 1,
+    "selling_rate": 458.55,
+    "purchase_rate": 401.23,
+    "category": "Bulk Pack"
+  },
+  {
+    "name": "4 Ltr Gulkand (Rs.650)",
+    "net_qty": "4 LTR",
+    "pcs_per_box": 1,
+    "selling_rate": 458.55,
+    "purchase_rate": 401.23,
+    "category": "Bulk Pack"
+  },
+  {
+    "name": "4 Ltr Mango Masti (Rs.540)",
+    "net_qty": "4 LTR",
+    "pcs_per_box": 1,
+    "selling_rate": 380.95,
+    "purchase_rate": 401.23,
+    "category": "Bulk Pack"
+  },
+  {
+    "name": "4 Ltr Mast Vanilla (Rs.380)",
+    "net_qty": "4 LTR",
+    "pcs_per_box": 1,
+    "selling_rate": 268.08,
+    "purchase_rate": 234.57,
+    "category": "Bulk Pack"
+  },
+  {
+    "name": "4 Ltr Pan Masala (Rs.650)",
+    "net_qty": "4 LTR",
+    "pcs_per_box": 1,
+    "selling_rate": 458.55,
+    "purchase_rate": 401.23,
+    "category": "Bulk Pack"
+  },
+  {
+    "name": "4 Ltr Plain Pineapple (Rs.380)",
+    "net_qty": "4 LTR",
+    "pcs_per_box": 1,
+    "selling_rate": 268.08,
+    "purchase_rate": 234.57,
+    "category": "Bulk Pack"
+  },
+  {
+    "name": "4 Ltr Raj Bhog (Rs.800)",
+    "net_qty": "4 LTR",
+    "pcs_per_box": 1,
+    "selling_rate": 564.37,
+    "purchase_rate": 493.83,
+    "category": "Bulk Pack"
+  },
+  {
+    "name": "4 Ltr Rajeshahi Keshar Pista (Rs.800)",
+    "net_qty": "4 LTR",
+    "pcs_per_box": 1,
+    "selling_rate": 564.37,
+    "purchase_rate": 493.83,
+    "category": "Bulk Pack"
+  },
+  {
+    "name": "4 Ltr Rosted Almond (Rs.800)",
+    "net_qty": "4 LTR",
+    "pcs_per_box": 1,
+    "selling_rate": 564.37,
+    "purchase_rate": 493.83,
+    "category": "Bulk Pack"
+  },
+  {
+    "name": "4 Ltr Shahi Pista (Rs.380)",
+    "net_qty": "4 LTR",
+    "pcs_per_box": 1,
+    "selling_rate": 268.08,
+    "purchase_rate": 234.57,
+    "category": "Bulk Pack"
+  },
+  {
+    "name": "4 Ltr Sitafal (Rs.800)",
+    "net_qty": "4 LTR",
+    "pcs_per_box": 1,
+    "selling_rate": 564.37,
+    "purchase_rate": 493.83,
+    "category": "Bulk Pack"
+  },
+  {
+    "name": "4 Ltr Spicy Guava (Rs.750)",
+    "net_qty": "4 LTR",
+    "pcs_per_box": 1,
+    "selling_rate": 529.1,
+    "purchase_rate": 462.96,
+    "category": "Bulk Pack"
+  },
+  {
+    "name": "4 Ltr Very Strawberry (Rs.380)",
+    "net_qty": "4 LTR",
+    "pcs_per_box": 1,
+    "selling_rate": 268.08,
+    "purchase_rate": 234.57,
+    "category": "Bulk Pack"
+  },
+  {
+    "name": "5 Ltr Crunchy ButterScotch (Rs.650)",
+    "net_qty": "5 LTR",
+    "pcs_per_box": 1,
+    "selling_rate": 458.55,
+    "purchase_rate": 401.23,
+    "category": "Bulk Pack"
+  },
+  {
+    "name": "5 Ltr Dark Chocolate (Rs.600)",
+    "net_qty": "5 LTR",
+    "pcs_per_box": 1,
+    "selling_rate": 423.28,
+    "purchase_rate": 370.37,
+    "category": "Bulk Pack"
+  },
+  {
+    "name": "5 Ltr Gold Vanila (Rs.450)",
+    "net_qty": "5 LTR",
+    "pcs_per_box": 1,
+    "selling_rate": 317.46,
+    "purchase_rate": 277.78,
+    "category": "Bulk Pack"
+  },
+  {
+    "name": "5 Ltr Mango Masti (Rs.650)",
+    "net_qty": "5 LTR",
+    "pcs_per_box": 1,
+    "selling_rate": 458.55,
+    "purchase_rate": 401.23,
+    "category": "Bulk Pack"
+  },
+  {
+    "name": "5 Ltr Shahi Pista (Rs.450)",
+    "net_qty": "5 LTR",
+    "pcs_per_box": 1,
+    "selling_rate": 317.46,
+    "purchase_rate": 277.78,
+    "category": "Bulk Pack"
+  },
+  {
+    "name": "5 Ltr Very Strawberry (Rs.450)",
+    "net_qty": "5 LTR",
+    "pcs_per_box": 1,
+    "selling_rate": 317.46,
+    "purchase_rate": 277.78,
+    "category": "Bulk Pack"
+  },
+  {
+    "name": "35 ML Imali Chatpati 30 Pcs (Rs.5)",
+    "net_qty": "35 ML",
+    "pcs_per_box": 30,
+    "selling_rate": 119.05,
+    "purchase_rate": 104.17,
+    "category": "Candies"
+  },
+  {
+    "name": "35 ML Jal Jeera 30 Pcs (Rs.5)",
+    "net_qty": "35 ML",
+    "pcs_per_box": 30,
+    "selling_rate": 119.05,
+    "purchase_rate": 104.17,
+    "category": "Candies"
+  },
+  {
+    "name": "35 ML Kacchi Kairi 30 Pcs (Rs.5)",
+    "net_qty": "35 ML",
+    "pcs_per_box": 30,
+    "selling_rate": 119.05,
+    "purchase_rate": 104.17,
+    "category": "Candies"
+  },
+  {
+    "name": "35 ML Kala Khatta 30 Pcs (Rs.5)",
+    "net_qty": "35 ML",
+    "pcs_per_box": 30,
+    "selling_rate": 119.05,
+    "purchase_rate": 104.17,
+    "category": "Candies"
+  },
+  {
+    "name": "35 ML Mango Tango 30 Pcs (Rs.5)",
+    "net_qty": "35 ML",
+    "pcs_per_box": 30,
+    "selling_rate": 119.05,
+    "purchase_rate": 104.17,
+    "category": "Candies"
+  },
+  {
+    "name": "35 ML Orange Chaska 30 Pcs (Rs.5)",
+    "net_qty": "35 ML",
+    "pcs_per_box": 30,
+    "selling_rate": 119.05,
+    "purchase_rate": 104.17,
+    "category": "Candies"
+  },
+  {
+    "name": "40 ML Chhote Miya Chocobar 30 Pcs (Rs.10)",
+    "net_qty": "40 ML",
+    "pcs_per_box": 30,
+    "selling_rate": 228.57,
+    "purchase_rate": 200,
+    "category": "Candies"
+  },
+  {
+    "name": "40 ML Mini Crunchy Chocobar 30 Pcs (Rs.10)",
+    "net_qty": "40 ML",
+    "pcs_per_box": 30,
+    "selling_rate": 238.1,
+    "purchase_rate": 208.33,
+    "category": "Candies"
+  },
+  {
+    "name": "60 ML Mango Candy Crush 18 Pcs (Rs.20)",
+    "net_qty": "60 ML",
+    "pcs_per_box": 18,
+    "selling_rate": 274.29,
+    "purchase_rate": 240,
+    "category": "Candies"
+  },
+  {
+    "name": "60 ML Raspberry Candy Crush 18 Pcs (Rs.20)",
+    "net_qty": "60 ML",
+    "pcs_per_box": 18,
+    "selling_rate": 274.29,
+    "purchase_rate": 240,
+    "category": "Candies"
+  },
+  {
+    "name": "70 ML Choco Butter Byte 18 Pcs (Rs.20)",
+    "net_qty": "70 ML",
+    "pcs_per_box": 18,
+    "selling_rate": 263.74,
+    "purchase_rate": 230.77,
+    "category": "Candies"
+  },
+  {
+    "name": "70 ML Crunchy Chocobar 18 Pcs (Rs.20)",
+    "net_qty": "70 ML",
+    "pcs_per_box": 18,
+    "selling_rate": 263.74,
+    "purchase_rate": 230.77,
+    "category": "Candies"
+  },
+  {
+    "name": "70 ML Terminator Bar 18 Pcs (Rs.30)",
+    "net_qty": "70 ML",
+    "pcs_per_box": 18,
+    "selling_rate": 395.6,
+    "purchase_rate": 346.15,
+    "category": "Candies"
+  },
+  {
+    "name": "110 ML Cone Butterscotch Crunch 14 Pcs (Rs.30)",
+    "net_qty": "110 ML",
+    "pcs_per_box": 14,
+    "selling_rate": 307.69,
+    "purchase_rate": 269.23,
+    "category": "Cones"
+  },
+  {
+    "name": "110 ML Cone Choco Vanilla 18 Pcs (Rs.20)",
+    "net_qty": "110 ML",
+    "pcs_per_box": 18,
+    "selling_rate": 274.29,
+    "purchase_rate": 240,
+    "category": "Cones"
+  },
+  {
+    "name": "110 ML Cone Chocolate Fudge 14 Pcs (Rs.30)",
+    "net_qty": "110 ML",
+    "pcs_per_box": 14,
+    "selling_rate": 307.69,
+    "purchase_rate": 269.23,
+    "category": "Cones"
+  },
+  {
+    "name": "110 ML Cone Shahi Pista 18 Pcs (Rs.20)",
+    "net_qty": "110 ML",
+    "pcs_per_box": 18,
+    "selling_rate": 274.29,
+    "purchase_rate": 240,
+    "category": "Cones"
+  },
+  {
+    "name": "110 ML Cone Very Strawberry 18 Pcs (Rs.20)",
+    "net_qty": "110 ML",
+    "pcs_per_box": 18,
+    "selling_rate": 274.29,
+    "purchase_rate": 240,
+    "category": "Cones"
+  },
+  {
+    "name": "50 ML Cone Butterscotch 36 Pcs (Rs.10)",
+    "net_qty": "50 ML",
+    "pcs_per_box": 36,
+    "selling_rate": 281.03,
+    "purchase_rate": 250.07,
+    "category": "Cones"
+  },
+  {
+    "name": "50 ML Cone Choco Vanilla 36 Pcs (Rs.10)",
+    "net_qty": "50 ML",
+    "pcs_per_box": 36,
+    "selling_rate": 281.03,
+    "purchase_rate": 250.07,
+    "category": "Cones"
+  },
+  {
+    "name": "50 ML Cone Chocolate Fudge 36 Pcs (Rs.10)",
+    "net_qty": "50 ML",
+    "pcs_per_box": 36,
+    "selling_rate": 281.03,
+    "purchase_rate": 250.07,
+    "category": "Cones"
+  },
+  {
+    "name": "80 ML Cone Badam Masti 24 Pcs (Rs.10)",
+    "net_qty": "80 ML",
+    "pcs_per_box": 24,
+    "selling_rate": 194.53,
+    "purchase_rate": 173.1,
+    "category": "Cones"
+  },
+  {
+    "name": "80 ML Cone Butterscotch Crunch 24 Pcs (Rs.10)",
+    "net_qty": "80 ML",
+    "pcs_per_box": 24,
+    "selling_rate": 194.53,
+    "purchase_rate": 173.1,
+    "category": "Cones"
+  },
+  {
+    "name": "100 ML Cup Butterscotch Crunch 12 Pcs (Rs.20)",
+    "net_qty": "100 ML",
+    "pcs_per_box": 12,
+    "selling_rate": 182.86,
+    "purchase_rate": 160,
+    "category": "Cups"
+  },
+  {
+    "name": "100 ML Cup Chocolate Fudge 12 Pcs (Rs.20)",
+    "net_qty": "100 ML",
+    "pcs_per_box": 12,
+    "selling_rate": 182.86,
+    "purchase_rate": 160,
+    "category": "Cups"
+  },
+  {
+    "name": "100 ML Cup Kaju Kishmish 12 Pcs (Rs.20)",
+    "net_qty": "100 ML",
+    "pcs_per_box": 12,
+    "selling_rate": 182.86,
+    "purchase_rate": 160,
+    "category": "Cups"
+  },
+  {
+    "name": "100 ML Cup Mango Masti 12 Pcs (Rs.20)",
+    "net_qty": "100 ML",
+    "pcs_per_box": 12,
+    "selling_rate": 182.86,
+    "purchase_rate": 160,
+    "category": "Cups"
+  },
+  {
+    "name": "100 ML Premium Cup Belgium Chocolate 12 Pcs (Rs.40)",
+    "net_qty": "100 ML",
+    "pcs_per_box": 12,
+    "selling_rate": 351.65,
+    "purchase_rate": 307.69,
+    "category": "Cups"
+  },
+  {
+    "name": "100 ML Premium Cup Cheese Blueberry 12 Pcs (Rs.40)",
+    "net_qty": "100 ML",
+    "pcs_per_box": 12,
+    "selling_rate": 351.65,
+    "purchase_rate": 307.69,
+    "category": "Cups"
+  },
+  {
+    "name": "100 ML Premium Cup Fresh Mango 12 Pcs (Rs.40)",
+    "net_qty": "100 ML",
+    "pcs_per_box": 12,
+    "selling_rate": 351.65,
+    "purchase_rate": 307.69,
+    "category": "Cups"
+  },
+  {
+    "name": "100 ML Premium Cup Fresh Pineapple 12 Pcs (Rs.40)",
+    "net_qty": "100 ML",
+    "pcs_per_box": 12,
+    "selling_rate": 351.65,
+    "purchase_rate": 307.69,
+    "category": "Cups"
+  },
+  {
+    "name": "100 ML Premium Cup Masala Pan 12 Pcs (Rs.40)",
+    "net_qty": "100 ML",
+    "pcs_per_box": 12,
+    "selling_rate": 351.65,
+    "purchase_rate": 307.69,
+    "category": "Cups"
+  },
+  {
+    "name": "100 ML Premium Cup Sitafal 12 Pcs (Rs.40)",
+    "net_qty": "100 ML",
+    "pcs_per_box": 12,
+    "selling_rate": 351.65,
+    "purchase_rate": 307.69,
+    "category": "Cups"
+  },
+  {
+    "name": "100 ML Premium Cup Spicy Guava 12 Pcs (Rs.40)",
+    "net_qty": "100 ML",
+    "pcs_per_box": 12,
+    "selling_rate": 351.65,
+    "purchase_rate": 307.69,
+    "category": "Cups"
+  },
+  {
+    "name": "100 ML Premium Cup Tender Coconut 12 Pcs (Rs.40)",
+    "net_qty": "100 ML",
+    "pcs_per_box": 12,
+    "selling_rate": 351.65,
+    "purchase_rate": 307.69,
+    "category": "Cups"
+  },
+  {
+    "name": "125 ML Chocolate Ripple Sundae 12 Pcs (Rs.20)",
+    "net_qty": "125 ML",
+    "pcs_per_box": 12,
+    "selling_rate": 182.86,
+    "purchase_rate": 160,
+    "category": "Cups"
+  },
+  {
+    "name": "125 ML Mango Ripple Sundae 12 Pcs (Rs.20)",
+    "net_qty": "125 ML",
+    "pcs_per_box": 12,
+    "selling_rate": 182.86,
+    "purchase_rate": 160,
+    "category": "Cups"
+  },
+  {
+    "name": "150 ML Cup American Dryfruit Sundae 6 Pcs (Rs.40)",
+    "net_qty": "150 ML",
+    "pcs_per_box": 6,
+    "selling_rate": 175.82,
+    "purchase_rate": 153.85,
+    "category": "Cups"
+  },
+  {
+    "name": "150 ML Cup Fully Loaded Sundae 6 Pcs (Rs.40)",
+    "net_qty": "150 ML",
+    "pcs_per_box": 6,
+    "selling_rate": 175.82,
+    "purchase_rate": 153.85,
+    "category": "Cups"
+  },
+  {
+    "name": "150 ML Cup Rajbhog Sundae 6 Pcs (Rs.40)",
+    "net_qty": "150 ML",
+    "pcs_per_box": 6,
+    "selling_rate": 175.82,
+    "purchase_rate": 153.85,
+    "category": "Cups"
+  },
+  {
+    "name": "30 ML Cup Mast Vanilla 30 Pcs (Rs.5)",
+    "net_qty": "30 ML",
+    "pcs_per_box": 30,
+    "selling_rate": 121.58,
+    "purchase_rate": 106.38,
+    "category": "Cups"
+  },
+  {
+    "name": "30 ML Cup Shahi Pista 30 Pcs (Rs.5)",
+    "net_qty": "30 ML",
+    "pcs_per_box": 30,
+    "selling_rate": 121.58,
+    "purchase_rate": 106.38,
+    "category": "Cups"
+  },
+  {
+    "name": "60 ML Cup Butterscotch 24 Pcs (Rs.10)",
+    "net_qty": "60 ML",
+    "pcs_per_box": 24,
+    "selling_rate": 182.86,
+    "purchase_rate": 160,
+    "category": "Cups"
+  },
+  {
+    "name": "60 ML Cup Mast Vanilla 24 Pcs (Rs.10)",
+    "net_qty": "60 ML",
+    "pcs_per_box": 24,
+    "selling_rate": 182.86,
+    "purchase_rate": 160,
+    "category": "Cups"
+  },
+  {
+    "name": "60 ML Cup Mix Fruit Sundae 18 Pcs (Rs.10)",
+    "net_qty": "60 ML",
+    "pcs_per_box": 18,
+    "selling_rate": 149.07,
+    "purchase_rate": 130.43,
+    "category": "Cups"
+  },
+  {
+    "name": "60 ML Cup Shahi Pista 24 Pcs (Rs.10)",
+    "net_qty": "60 ML",
+    "pcs_per_box": 24,
+    "selling_rate": 182.86,
+    "purchase_rate": 160,
+    "category": "Cups"
+  },
+  {
+    "name": "80 ML Premium Boat Cup American Nuts 12 Pcs (Rs.20)",
+    "net_qty": "80 ML",
+    "pcs_per_box": 12,
+    "selling_rate": 182.86,
+    "purchase_rate": 160,
+    "category": "Cups"
+  },
+  {
+    "name": "80 ML Premium Boat Cup Cream N Cookies 12 Pcs (Rs.20)",
+    "net_qty": "80 ML",
+    "pcs_per_box": 12,
+    "selling_rate": 182.86,
+    "purchase_rate": 160,
+    "category": "Cups"
+  },
+  {
+    "name": "80 ML Premium Boat Cup Mawa Badam 12 Pcs (Rs.20)",
+    "net_qty": "80 ML",
+    "pcs_per_box": 12,
+    "selling_rate": 182.86,
+    "purchase_rate": 160,
+    "category": "Cups"
+  },
+  {
+    "name": "80 ML Sandwich 18 Pcs (Rs.20)",
+    "net_qty": "80 ML",
+    "pcs_per_box": 18,
+    "selling_rate": 274.29,
+    "purchase_rate": 240,
+    "category": "Cups"
+  },
+  {
+    "name": "500 ML Cake Black Forest (Rs.250)",
+    "net_qty": "500 ML",
+    "pcs_per_box": 1,
+    "selling_rate": 190.48,
+    "purchase_rate": 166.67,
+    "category": "Family Pack"
+  },
+  {
+    "name": "500 ML Cake Golden Fantacy (Rs.270)",
+    "net_qty": "500 ML",
+    "pcs_per_box": 1,
+    "selling_rate": 205.71,
+    "purchase_rate": 180,
+    "category": "Family Pack"
+  },
+  {
+    "name": "500 ML Tub Belgium Chocolate (Rs.160)",
+    "net_qty": "500 ML",
+    "pcs_per_box": 1,
+    "selling_rate": 117.22,
+    "purchase_rate": 102.56,
+    "category": "Family Pack"
+  },
+  {
+    "name": "500 ML Tub Chocolate Ripple (Rs.100)",
+    "net_qty": "500 ML",
+    "pcs_per_box": 1,
+    "selling_rate": 73.26,
+    "purchase_rate": 64.1,
+    "category": "Family Pack"
+  },
+  {
+    "name": "500 ML Tub Mango Ripple (Rs.100)",
+    "net_qty": "500 ML",
+    "pcs_per_box": 1,
+    "selling_rate": 73.26,
+    "purchase_rate": 64.1,
+    "category": "Family Pack"
+  },
+  {
+    "name": "500 ML Tub Panchamrut (Rs.160)",
+    "net_qty": "500 ML",
+    "pcs_per_box": 1,
+    "selling_rate": 117.22,
+    "purchase_rate": 102.56,
+    "category": "Family Pack"
+  },
+  {
+    "name": "500 ML Tub Sitafal (Rs.160)",
+    "net_qty": "500 ML",
+    "pcs_per_box": 1,
+    "selling_rate": 117.22,
+    "purchase_rate": 102.56,
+    "category": "Family Pack"
+  },
+  {
+    "name": "500 ML Tub Tender Coconut (Rs.160)",
+    "net_qty": "500 ML",
+    "pcs_per_box": 1,
+    "selling_rate": 117.22,
+    "purchase_rate": 102.56,
+    "category": "Family Pack"
+  },
+  {
+    "name": "700 ML American Nuts (Rs.150)",
+    "net_qty": "700 ML",
+    "pcs_per_box": 1,
+    "selling_rate": 109.89,
+    "purchase_rate": 96.15,
+    "category": "Family Pack"
+  },
+  {
+    "name": "700 ML Anjir Badam (Rs.150)",
+    "net_qty": "700 ML",
+    "pcs_per_box": 1,
+    "selling_rate": 109.89,
+    "purchase_rate": 96.15,
+    "category": "Family Pack"
+  },
+  {
+    "name": "700 ML Badam Masti (Rs.100)",
+    "net_qty": "700 ML",
+    "pcs_per_box": 1,
+    "selling_rate": 76.19,
+    "purchase_rate": 66.67,
+    "category": "Family Pack"
+  },
+  {
+    "name": "700 ML Butterscotch Crunch (Rs.130)",
+    "net_qty": "700 ML",
+    "pcs_per_box": 1,
+    "selling_rate": 95.24,
+    "purchase_rate": 83.33,
+    "category": "Family Pack"
+  },
+  {
+    "name": "700 ML Choco Chips (Rs.140)",
+    "net_qty": "700 ML",
+    "pcs_per_box": 1,
+    "selling_rate": 102.56,
+    "purchase_rate": 89.74,
+    "category": "Family Pack"
+  },
+  {
+    "name": "700 ML Chocolate Fudge (Rs.130)",
+    "net_qty": "700 ML",
+    "pcs_per_box": 1,
+    "selling_rate": 95.24,
+    "purchase_rate": 83.33,
+    "category": "Family Pack"
+  },
+  {
+    "name": "700 ML Cream Balls (Rs.160)",
+    "net_qty": "700 ML",
+    "pcs_per_box": 1,
+    "selling_rate": 117.22,
+    "purchase_rate": 102.56,
+    "category": "Family Pack"
+  },
+  {
+    "name": "700 ML Dryfruit Malai Kulfi (Rs.150)",
+    "net_qty": "700 ML",
+    "pcs_per_box": 1,
+    "selling_rate": 109.89,
+    "purchase_rate": 96.15,
+    "category": "Family Pack"
+  },
+  {
+    "name": "700 ML Gulkand (Rs.140)",
+    "net_qty": "700 ML",
+    "pcs_per_box": 1,
+    "selling_rate": 102.56,
+    "purchase_rate": 89.74,
+    "category": "Family Pack"
+  },
+  {
+    "name": "700 ML Kaju Kishmish (Rs.130)",
+    "net_qty": "700 ML",
+    "pcs_per_box": 1,
+    "selling_rate": 95.24,
+    "purchase_rate": 83.33,
+    "category": "Family Pack"
+  },
+  {
+    "name": "700 ML Mango Masti (Rs.120)",
+    "net_qty": "700 ML",
+    "pcs_per_box": 1,
+    "selling_rate": 87.91,
+    "purchase_rate": 76.92,
+    "category": "Family Pack"
+  },
+  {
+    "name": "700 ML Mast Vanilla (Rs.100)",
+    "net_qty": "700 ML",
+    "pcs_per_box": 1,
+    "selling_rate": 76.19,
+    "purchase_rate": 66.67,
+    "category": "Family Pack"
+  },
+  {
+    "name": "700 ML Rajbhog (Rs.150)",
+    "net_qty": "700 ML",
+    "pcs_per_box": 1,
+    "selling_rate": 109.89,
+    "purchase_rate": 96.15,
+    "category": "Family Pack"
+  },
+  {
+    "name": "700 ML Rajeshahi Kesar Pista (Rs.150)",
+    "net_qty": "700 ML",
+    "pcs_per_box": 1,
+    "selling_rate": 109.89,
+    "purchase_rate": 96.15,
+    "category": "Family Pack"
+  },
+  {
+    "name": "700 ML Shahi Pista (Rs.100)",
+    "net_qty": "700 ML",
+    "pcs_per_box": 1,
+    "selling_rate": 76.19,
+    "purchase_rate": 66.67,
+    "category": "Family Pack"
+  },
+  {
+    "name": "700 ML Sitafal (Rs.150)",
+    "net_qty": "700 ML",
+    "pcs_per_box": 1,
+    "selling_rate": 109.89,
+    "purchase_rate": 96.15,
+    "category": "Family Pack"
+  },
+  {
+    "name": "700 ML Very Strawberry (Rs.100)",
+    "net_qty": "700 ML",
+    "pcs_per_box": 1,
+    "selling_rate": 76.19,
+    "purchase_rate": 66.67,
+    "category": "Family Pack"
+  },
+  {
+    "name": "750 ML Tub Chocolate Ripple (Rs.150)",
+    "net_qty": "750 ML",
+    "pcs_per_box": 1,
+    "selling_rate": 109.89,
+    "purchase_rate": 96.15,
+    "category": "Family Pack"
+  },
+  {
+    "name": "750 ML Tub Mango Ripple (Rs.150)",
+    "net_qty": "750 ML",
+    "pcs_per_box": 1,
+    "selling_rate": 109.89,
+    "purchase_rate": 96.15,
+    "category": "Family Pack"
+  },
+  {
+    "name": "100 ML Matka Kulfi 6 Pcs (Rs.50)",
+    "net_qty": "100 ML",
+    "pcs_per_box": 6,
+    "selling_rate": 219.78,
+    "purchase_rate": 192.31,
+    "category": "Kulfi"
+  },
+  {
+    "name": "25 ML Maska Masti Kulfi 30 Pcs (Rs.5)",
+    "net_qty": "25 ML",
+    "pcs_per_box": 30,
+    "selling_rate": 124.22,
+    "purchase_rate": 112.44,
+    "category": "Kulfi"
+  },
+  {
+    "name": "35 ML Dip Dry Fruit Kulfi 18 Pcs (Rs.20)",
+    "net_qty": "35 ML",
+    "pcs_per_box": 18,
+    "selling_rate": 263.74,
+    "purchase_rate": 230.77,
+    "category": "Kulfi"
+  },
+  {
+    "name": "35 ML Gulkand Kulfi 30 Pcs (Rs.10)",
+    "net_qty": "35 ML",
+    "pcs_per_box": 30,
+    "selling_rate": 228.57,
+    "purchase_rate": 200,
+    "category": "Kulfi"
+  },
+  {
+    "name": "35 ML Mava Malai Kulfi 30 Pcs (Rs.10)",
+    "net_qty": "35 ML",
+    "pcs_per_box": 30,
+    "selling_rate": 228.57,
+    "purchase_rate": 200,
+    "category": "Kulfi"
+  },
+  {
+    "name": "35 ML Rabdi Kulfi 18 Pcs (Rs.20)",
+    "net_qty": "35 ML",
+    "pcs_per_box": 18,
+    "selling_rate": 263.74,
+    "purchase_rate": 230.77,
+    "category": "Kulfi"
+  },
+  {
+    "name": "35 ML Shahi Pista Kulfi 30 Pcs (Rs.10)",
+    "net_qty": "35 ML",
+    "pcs_per_box": 30,
+    "selling_rate": 228.57,
+    "purchase_rate": 200,
+    "category": "Kulfi"
+  },
+  {
+    "name": "55 ML Anjeer Kulfi 10 Pcs (Rs.30)",
+    "net_qty": "55 ML",
+    "pcs_per_box": 10,
+    "selling_rate": 228.57,
+    "purchase_rate": 200,
+    "category": "Kulfi"
+  },
+  {
+    "name": "55 ML Punjabi Kulfi 10 Pcs (Rs.30)",
+    "net_qty": "55 ML",
+    "pcs_per_box": 10,
+    "selling_rate": 228.57,
+    "purchase_rate": 200,
+    "category": "Kulfi"
+  },
+  {
+    "name": "70 ML Badam Masti Kulfi 12 Pcs (Rs.20)",
+    "net_qty": "70 ML",
+    "pcs_per_box": 12,
+    "selling_rate": 190.48,
+    "purchase_rate": 166.67,
+    "category": "Kulfi"
+  },
+  {
+    "name": "70 ML Rajbhog Kulfi 12 Pcs (Rs.20)",
+    "net_qty": "70 ML",
+    "pcs_per_box": 12,
+    "selling_rate": 190.48,
+    "purchase_rate": 166.67,
+    "category": "Kulfi"
+  },
+  {
+    "name": "70 ML Shahi Pista Kulfi 12 Pcs (Rs.20)",
+    "net_qty": "70 ML",
+    "pcs_per_box": 12,
+    "selling_rate": 190.48,
+    "purchase_rate": 166.67,
+    "category": "Kulfi"
+  },
+  {
+    "name": "90 ML Rajwadi Matka Kulfi 12 Pcs (Rs.20)",
+    "net_qty": "90 ML",
+    "pcs_per_box": 12,
+    "selling_rate": 190.48,
+    "purchase_rate": 166.67,
+    "category": "Kulfi"
+  },
+  {
+    "name": "100 ML Pastry Black Forest 9 Pcs (Rs.50)",
+    "net_qty": "100 ML",
+    "pcs_per_box": 9,
+    "selling_rate": 342.86,
+    "purchase_rate": 300,
+    "category": "Others"
+  },
+  {
+    "name": "100 ML Pastry Golden Fantacy 9 Pcs (Rs.50)",
+    "net_qty": "100 ML",
+    "pcs_per_box": 9,
+    "selling_rate": 342.86,
+    "purchase_rate": 300,
+    "category": "Others"
+  },
+  {
+    "name": "125 ML Cake Black Forest 5 Pcs (Rs.60)",
+    "net_qty": "125 ML",
+    "pcs_per_box": 5,
+    "selling_rate": 228.57,
+    "purchase_rate": 200,
+    "category": "Others"
+  },
+  {
+    "name": "150 ML Rainbow Cassata 4 Pcs (Rs.50)",
+    "net_qty": "150 ML",
+    "pcs_per_box": 4,
+    "selling_rate": 146.52,
+    "purchase_rate": 128.21,
+    "category": "Others"
+  },
+  {
+    "name": "70 ML Aamras Sorbet 18 Pcs (Rs.20)",
+    "net_qty": "70 ML",
+    "pcs_per_box": 18,
+    "selling_rate": 274.29,
+    "purchase_rate": 240,
+    "category": "Others"
+  },
+  {
+    "name": "1250 ML Butterscotch Crunch (Rs.180)",
+    "net_qty": "1250 ML",
+    "pcs_per_box": 1,
+    "selling_rate": 131.87,
+    "purchase_rate": 115.38,
+    "category": "Party Pack"
+  },
+  {
+    "name": "1250 ML Chocolate Fudge (Rs.180)",
+    "net_qty": "1250 ML",
+    "pcs_per_box": 1,
+    "selling_rate": 131.87,
+    "purchase_rate": 115.38,
+    "category": "Party Pack"
+  },
+  {
+    "name": "1250 ML Dryfruit Malai Kulfi (Rs.250)",
+    "net_qty": "1250 ML",
+    "pcs_per_box": 1,
+    "selling_rate": 183.15,
+    "purchase_rate": 160.26,
+    "category": "Party Pack"
+  },
+  {
+    "name": "1250 ML Mango Masti (Rs.180)",
+    "net_qty": "1250 ML",
+    "pcs_per_box": 1,
+    "selling_rate": 131.87,
+    "purchase_rate": 115.38,
+    "category": "Party Pack"
+  },
+  {
+    "name": "1250 ML Mast Vanilla (Rs.140)",
+    "net_qty": "1250 ML",
+    "pcs_per_box": 1,
+    "selling_rate": 102.56,
+    "purchase_rate": 89.74,
+    "category": "Party Pack"
+  },
+  {
+    "name": "1250 ML Rajbhog (Rs.250)",
+    "net_qty": "1250 ML",
+    "pcs_per_box": 1,
+    "selling_rate": 183.15,
+    "purchase_rate": 160.26,
+    "category": "Party Pack"
+  },
+  {
+    "name": "1250 ML Rajeshahi Kesar Pista (Rs.250)",
+    "net_qty": "1250 ML",
+    "pcs_per_box": 1,
+    "selling_rate": 183.15,
+    "purchase_rate": 160.26,
+    "category": "Party Pack"
+  },
+  {
+    "name": "1250 ML Shahi Pista (Rs.140)",
+    "net_qty": "1250 ML",
+    "pcs_per_box": 1,
+    "selling_rate": 102.56,
+    "purchase_rate": 89.74,
+    "category": "Party Pack"
+  },
+  {
+    "name": "1250 ML Very Strawberry (Rs.140)",
+    "net_qty": "1250 ML",
+    "pcs_per_box": 1,
+    "selling_rate": 102.56,
+    "purchase_rate": 89.74,
+    "category": "Party Pack"
+  }
+]

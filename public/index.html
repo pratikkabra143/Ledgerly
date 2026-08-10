@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script src="/js/auth.js"></script>
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#10b981">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice — Ledgerly</title>
+    <link rel="icon" type="image/png" href="/icon.png">
+    <meta name="description" content="Generate GST invoices with Ledgerly Enterprise Billing System">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-inner">
+            <a href="/" class="nav-brand">
+                <img src="/icon.png" class="nav-logo" alt="Logo">
+                <div class="nav-divider"></div>
+                <div class="nav-brand-content">
+                    <div class="nav-brand-text">Ledger<span class="brand-gradient">ly</span></div>
+                    <div class="nav-brand-sub">GST INVOICING <span class="dot">•</span> INVENTORY <span class="dot">•</span> COMPLIANCE</div>
+                </div>
+            </a>
+            <ul class="nav-links">
+                <li><a href="/" class="active"><span class="nav-icon">📄</span> <span>Invoice</span></a></li>
+                <li><a href="/inventory.html"><span class="nav-icon">📦</span> <span>Inventory</span></a></li>
+                <li><a href="/sales.html"><span class="nav-icon">📊</span> <span>Sales</span></a></li>
+                <li><a href="/purchases-registry.html"><span class="nav-icon">📖</span> <span>Purchases</span></a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Admin Section -->
+    <div class="page-container" id="admin-section">
+        <div class="page-header">
+            <h1 class="page-title">Invoice</h1>
+        </div>
+
+        <!-- Customer Details -->
+        <div class="card mb-24">
+            <div class="card-header">
+                <h2 class="card-title">👤 Customer Details</h2>
+                <span class="badge badge-accent" id="invoiceNoBadge">Loading...</span>
+            </div>
+            <div class="form-row">
+                <div class="form-group" style="max-width: 180px;">
+                    <label class="form-label">Invoice Date *</label>
+                    <input type="date" id="custDate" class="form-input">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Customer Name</label>
+                    <input type="text" id="custName" class="form-input" placeholder="Enter customer name">
+                </div>
+                <div class="form-group" style="max-width: 250px;">
+                    <label class="form-label">Mobile Number</label>
+                    <div style="display: flex; gap: 8px;">
+                        <input type="tel" id="custPhone" class="form-input" placeholder="10-digit mobile"
+                            maxlength="10">
+                    </div>
+                </div>
+                <div class="form-group" style="max-width: 250px;">
+                    <label class="form-label">Customer GSTIN</label>
+                    <input type="text" id="custGst" class="form-input" placeholder="GSTIN (optional) / URN">
+                </div>
+            </div>
+        </div>
+
+        <!-- Product Items -->
+        <div class="card mb-24">
+            <div class="card-header">
+                <h2 class="card-title">📦 Products</h2>
+                <button class="btn btn-primary" onclick="addProductRow()" id="addProductBtn">
+                    + Add Product
+                </button>
+            </div>
+            <div id="productRows"></div>
+            <div id="emptyProducts" class="empty-state">
+                <div class="empty-state-icon">🛒</div>
+                <div class="empty-state-text">No products added yet</div>
+                <div class="empty-state-sub">Click "Add Product" to start building your invoice</div>
+            </div>
+        </div>
+
+        <!-- Live Summary -->
+        <div class="card mb-24">
+            <div class="card-header">
+                <h2 class="card-title">💰 Invoice Summary</h2>
+            </div>
+            <div class="stats-grid">
+                <div class="stat-card accent">
+                    <div class="stat-label">Subtotal</div>
+                    <div class="stat-value" id="liveSubtotal">₹0.00</div>
+                </div>
+                <div class="stat-card cyan">
+                    <div class="stat-label">CGST (2.5%)</div>
+                    <div class="stat-value" id="liveCgst">₹0.00</div>
+                </div>
+                <div class="stat-card cyan">
+                    <div class="stat-label">SGST (2.5%)</div>
+                    <div class="stat-value" id="liveSgst">₹0.00</div>
+                </div>
+                <div class="stat-card green">
+                    <div class="stat-label">Grand Total</div>
+                    <div class="stat-value" id="liveTotal">₹0</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <!-- Action Buttons -->
+        <div class="btn-group" style="justify-content: flex-end; margin-top: 32px;">
+            <button class="btn btn-primary btn-lg" onclick="handleNewInvoice()">
+                ➕ NEW INVOICE
+            </button>
+            <button class="btn btn-print btn-lg" onclick="handlePrint()">
+                🖨️ PRINT & SAVE
+            </button>
+            <button class="btn btn-wa btn-lg" onclick="handleWhatsApp()">
+                💬 SHARE ON WHATSAPP
+            </button>
+        </div>
+    </div>
+
+    <!-- Invoice Canvas (Print Only) -->
+    <div class="invoice-canvas" id="invoiceCanvas">
+        <div class="inv-header">
+            <div>
+                <div class="inv-brand-pre">TAX INVOICE</div>
+                <div class="inv-brand-main">LEDGERLY</div>
+                <div class="inv-brand-sub">ENTERPRISE</div>
+                <div class="inv-gstin">GSTIN : 27AAAAA0000A1Z5</div>
+            </div>
+            <div class="inv-contact">
+                <p>📍 100 Enterprise Way, Tech District, City</p>
+                <p>📞 +91 9876543210</p>
+                <p>📧 contact@ledgerly.com</p>
+            </div>
+        </div>
+
+        <div class="inv-meta">
+            <div>INVOICE NO : <span class="inv-badge" id="disInv"></span></div>
+            <div>DATE : <span class="inv-date" id="disDate"></span></div>
+        </div>
+
+        <hr class="inv-divider">
+
+        <div class="inv-customer">
+            <div class="inv-customer-label">Billed To:</div>
+            <div class="inv-customer-name" id="disName"></div>
+            <div class="inv-customer-info">
+                <span id="disPhone"></span>
+                <span id="disGst"></span>
+            </div>
+        </div>
+
+        <hr class="inv-divider">
+
+        <table class="inv-table">
+            <thead>
+                <tr>
+                    <th>S.No</th>
+                    <th>Product</th>
+                    <th>Net Qty</th>
+                    <th>Pcs</th>
+                    <th>Box</th>
+                    <th>Amount</th>
+                </tr>
+            </thead>
+            <tbody id="invoiceTableBody"></tbody>
+        </table>
+
+        <div class="inv-summary-wrap">
+            <div class="inv-summary">
+                <div class="inv-summary-row"><span>SUBTOTAL</span><span id="invSubtotal"></span></div>
+                <div class="inv-summary-row"><span>CGST (2.5%)</span><span id="invCgst"></span></div>
+                <div class="inv-summary-row"><span>SGST (2.5%)</span><span id="invSgst"></span></div>
+                <div class="inv-total-box"><span>TOTAL</span><span id="invTotal"></span></div>
+            </div>
+        </div>
+
+        <div class="inv-footer">
+            <div class="inv-thankyou">
+                Thank You
+                <span>FOR YOUR BUSINESS</span>
+            </div>
+            <div class="inv-signature">
+                <div class="inv-signature-line"></div>
+                Authorized Signature
+            </div>
+        </div>
+    </div>
+
+    <datalist id="inventoryList"></datalist>
+
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <div class="footer-links">
+                <a href="/legal.html#terms">Terms of Service</a>
+                <a href="/legal.html#privacy">Privacy Policy</a>
+                <a href="/legal.html#security">Security</a>
+                <a href="/legal.html#compliance">GST Compliance</a>
+            </div>
+            <div class="footer-copy">
+                &copy; 2026 Ledgerly Enterprise by Pratik Kabra. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script src="/js/shared.js?v=2"></script>
+    <script src="/js/country-codes.js"></script>
+    <script src="/js/invoice.js?v=2"></script>
+    <script>
+        // Populate country code dropdown
+        window.addEventListener('DOMContentLoaded', () => {
+            const select = document.getElementById('custCountryCode');
+
+            if (!select) {
+                console.error("Select element not found");
+                return;
+            }
+
+            if (!window.countryCodes || !Array.isArray(window.countryCodes)) {
+                console.error("countryCodes not loaded properly");
+                return;
+            }
+
+            select.innerHTML = '';
+
+            window.countryCodes.forEach(item => {
+                if (!item.code || !item.name) return;
+
+                const opt = document.createElement('option');
+                opt.value = item.code;
+                //opt.textContent = `${item.code} (${item.name})`;
+                opt.textContent = `${item.name}`;
+
+                if (item.code === '+91') {
+                    opt.selected = true;
+                }
+
+                select.appendChild(opt);
+            });
+        });
+
+    </script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js').catch(err => console.log('SW failed: ', err));
+            });
+        }
+    </script>
+</body>
+
+</html>

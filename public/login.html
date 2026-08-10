@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Access — Ledgerly</title>
+    <link rel="icon" type="image/png" href="/icon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: var(--bg-main);
+            background-image: radial-gradient(circle at 50% -20%, var(--primary-color) 0%, transparent 40%);
+        }
+        .login-card {
+            background-color: var(--bg-card);
+            padding: 3rem;
+            border-radius: 16px;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--border-color);
+            width: 100%;
+            max-width: 420px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+        .logo {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+        .login-card h2 {
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+            font-size: 1.5rem;
+        }
+        .login-card p {
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            font-size: 0.95rem;
+        }
+        .form-group {
+            text-align: left;
+            margin-bottom: 1.5rem;
+        }
+        .form-group label {
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+        .form-group input {
+            background-color: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #fff;
+            padding: 1rem;
+            font-size: 1.05rem;
+        }
+        .form-group input:focus {
+            background-color: rgba(255,255,255,0.06);
+            border-color: var(--primary-color);
+        }
+        .error-msg {
+            color: #ef4444;
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            padding: 0.75rem;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            margin-bottom: 1.5rem;
+            display: none;
+        }
+        .btn-login {
+            width: 100%;
+            padding: 1rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-top: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-card">
+        <img src="/icon.png" alt="Ledgerly Logo" style="width: 48px; height: 48px; margin-bottom: 1rem;">
+        <h2>Ledgerly</h2>
+        <p>GST Invoicing & Inventory Engine</p>
+        
+        <div id="errorMsg" class="error-msg">Incorrect password. Please try again.</div>
+        
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="password">Administrator Password</label>
+                <input type="password" id="password" required autocomplete="current-password" placeholder="Enter your key..." autofocus>
+            </div>
+            <button type="submit" class="btn btn-primary btn-login">Unlock System</button>
+        </form>
+    </div>
+
+    <footer class="site-footer" style="position: absolute; bottom: 0; width: 100%; margin: 0; padding: 24px; background: transparent; border-top: none;">
+        <div class="footer-inner">
+            <div class="footer-links">
+                <a href="/legal.html#terms">Terms of Service</a>
+                <a href="/legal.html#privacy">Privacy Policy</a>
+                <a href="/legal.html#security">Security</a>
+                <a href="/legal.html#compliance">GST Compliance</a>
+            </div>
+            <div class="footer-copy">
+                &copy; 2026 Ledgerly Enterprise by Pratik Kabra. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script src="/js/shared.js"></script>
+    <script>
+        // If already logged in, redirect straight to dashboard
+        if (localStorage.getItem('ledgerly_token')) {
+            window.location.href = '/';
+        }
+
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const password = document.getElementById('password').value;
+            const errorMsg = document.getElementById('errorMsg');
+            const btn = document.querySelector('.btn-login');
+            
+            errorMsg.style.display = 'none';
+            btn.textContent = 'Verifying...';
+            btn.disabled = true;
+
+            try {
+                const response = await fetch('/api/auth/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ password })
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    localStorage.setItem('ledgerly_token', data.token);
+                    btn.textContent = 'Success!';
+                    btn.style.backgroundColor = '#10b981'; // Green
+                    setTimeout(() => {
+                        window.location.href = '/';
+                    }, 500);
+                } else {
+                    errorMsg.style.display = 'block';
+                    btn.disabled = false;
+                    btn.textContent = 'Unlock System';
+                }
+            } catch (err) {
+                errorMsg.textContent = 'Server connection failed.';
+                errorMsg.style.display = 'block';
+                btn.disabled = false;
+                btn.textContent = 'Unlock System';
+            }
+        });
+    </script>
+</body>
+</html>

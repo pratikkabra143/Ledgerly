@@ -1,0 +1,25 @@
+{
+  "name": "ledgerly",
+  "version": "1.0.0",
+  "description": "Ledgerly — GST Invoicing, Inventory Ledger & CA Compliance Engine",
+  "author": "Pratik Kabra",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "dependencies": {
+    "@netlify/functions": "^5.1.5",
+    "better-sqlite3": "^11.7.0",
+    "cors": "^2.8.5",
+    "dotenv": "^17.3.1",
+    "exceljs": "^4.4.0",
+    "express": "^4.21.0",
+    "jsonwebtoken": "^9.0.3",
+    "pg": "^8.20.0",
+    "serverless-http": "^4.0.0"
+  },
+  "overrides": {
+    "uuid": "^11.1.1"
+  }
+}

@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="/js/auth.js"></script>
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#10b981">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sales — Ledgerly</title>
+    <link rel="icon" type="image/png" href="/icon.png">
+    <meta name="description" content="Sales reports and revenue analytics for Ledgerly Enterprise Engine">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="navbar">
+    <div class="nav-inner">
+        <a href="/" class="nav-brand">
+                <img src="/icon.png" class="nav-logo" alt="Logo">
+            <div class="nav-divider"></div>
+            <div class="nav-brand-content">
+                <div class="nav-brand-text">Ledger<span class="brand-gradient">ly</span></div>
+                <div class="nav-brand-sub">GST INVOICING <span class="dot">•</span> INVENTORY <span class="dot">•</span> COMPLIANCE</div>
+            </div>
+        </a>
+        <ul class="nav-links">
+            <li><a href="/"><span class="nav-icon">📄</span> <span>Invoice</span></a></li>
+            <li><a href="/inventory.html"><span class="nav-icon">📦</span> <span>Inventory</span></a></li>
+            <li><a href="/sales.html" class="active"><span class="nav-icon">📊</span> <span>Sales</span></a></li>
+            <li><a href="/purchases-registry.html"><span class="nav-icon">📖</span> <span>Purchases</span></a></li>
+        </ul>
+    </div>
+</nav>
+
+<div class="page-container">
+    <div class="page-header flex justify-between items-center" style="flex-wrap:wrap; gap:16px;">
+        <div>
+            <h1 class="page-title">Sales</h1>
+        </div>
+        <div class="filter-toolbar">
+            <input type="date" id="dateFrom" class="form-input">
+            <input type="date" id="dateTo" class="form-input">
+            <button class="btn btn-primary" onclick="loadReport()">Apply Filter</button>
+            <div class="divider-v"></div>
+            <span style="font-size: 11px; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Export:</span>
+            <button class="btn btn-outline" onclick="exportExcel()">📥 Excel (GSTR-1)</button>
+            <button class="btn btn-outline" onclick="exportGstr1Json()" style="border-color:var(--accent); color:var(--accent);">⚡ Portal JSON</button>
+        </div>
+    </div>
+
+    <!-- Summary Cards -->
+    <div class="stats-grid">
+        <div class="stat-card accent">
+            <div class="stat-label">Total Invoices</div>
+            <div class="stat-value" id="statInvoices">—</div>
+        </div>
+        <div class="stat-card green">
+            <div class="stat-label">Total Revenue</div>
+            <div class="stat-value" id="statRevenue">—</div>
+        </div>
+        <div class="stat-card cyan">
+            <div class="stat-label">Total GST Collected</div>
+            <div class="stat-value" id="statGst">—</div>
+        </div>
+        <div class="stat-card orange">
+            <div class="stat-label">Average Invoice Value</div>
+            <div class="stat-value" id="statAvg">—</div>
+        </div>
+    </div>
+
+    <!-- Tabs -->
+    <div class="tabs">
+        <button class="tab active" onclick="switchSalesTab('invoices')">📄 Recent Invoices</button>
+        <button class="tab" onclick="switchSalesTab('topProducts')">🏆 Top Products</button>
+        <button class="tab" onclick="switchSalesTab('daily')">📅 Daily Breakdown</button>
+    </div>
+
+    <!-- Recent Invoices Tab -->
+    <div id="tab-invoices">
+        <div class="search-bar mb-24" style="max-width:400px;">
+            <input type="text" id="invoiceSearch" placeholder="Search by customer or invoice no..." oninput="searchInvoices()">
+        </div>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Invoice No</th>
+                        <th>Date</th>
+                        <th>Customer</th>
+                        <th>Phone</th>
+                        <th>Items</th>
+                        <th>Total</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="invoiceListBody">
+                    <tr><td colspan="7" class="text-center" style="padding:40px;">Loading...</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="flex justify-between items-center mt-16" id="paginationBar" style="display:none;">
+            <span class="stat-sub" id="paginationInfo"></span>
+            <div class="flex gap-12">
+                <button class="btn btn-outline" id="prevBtn" onclick="changePage(-1)">← Previous</button>
+                <button class="btn btn-outline" id="nextBtn" onclick="changePage(1)">Next →</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Top Products Tab -->
+    <div id="tab-topProducts" style="display:none;">
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Product</th>
+                        <th>Boxes Sold</th>
+                        <th>Revenue</th>
+                        <th>Invoices</th>
+                    </tr>
+                </thead>
+                <tbody id="topProductsBody"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Daily Breakdown Tab -->
+    <div id="tab-daily" style="display:none;">
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Invoices</th>
+                        <th>Revenue</th>
+                    </tr>
+                </thead>
+                <tbody id="dailyBody"></tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Invoice Detail Modal -->
+<div class="modal-overlay" id="invoiceDetailModal" style="display:none;">
+    <div class="modal" style="max-width:700px;">
+        <h2 class="modal-title" id="detailModalTitle">Invoice Details</h2>
+        <div id="detailModalContent"></div>
+        <div class="modal-actions">
+            <button class="btn btn-outline" onclick="closeDetailModal()">Close</button>
+        </div>
+    </div>
+</div>
+
+<footer class="site-footer">
+    <div class="footer-inner">
+        <div class="footer-links">
+            <a href="/legal.html#terms">Terms of Service</a>
+            <a href="/legal.html#privacy">Privacy Policy</a>
+            <a href="/legal.html#security">Security</a>
+            <a href="/legal.html#compliance">GST Compliance</a>
+        </div>
+        <div class="footer-copy">
+            &copy; 2026 Ledgerly Enterprise by Pratik Kabra. All rights reserved.
+        </div>
+    </div>
+</footer>
+
+<script src="/js/shared.js"></script>
+<script>
+// =============================================
+// SALES PAGE LOGIC
+// =============================================
+
+let currentPage = 1;
+let totalPages = 1;
+
+window.addEventListener('DOMContentLoaded', () => {
+    loadReport();
+    loadInvoices();
+});
+
+async function loadReport() {
+    const from = document.getElementById('dateFrom').value;
+    const to = document.getElementById('dateTo').value;
+
+    let url = '/api/sales/report?';
+    if (from) url += `from=${formatDateForAPI(from)}&`;
+    if (to) url += `to=${formatDateForAPI(to)}&`;
+
+    try {
+        const data = await API.get(url);
+
+        document.getElementById('statInvoices').textContent = data.summary.total_invoices;
+        document.getElementById('statRevenue').textContent = formatCurrencyRound(data.summary.total_revenue);
+        document.getElementById('statGst').textContent = formatCurrencyRound(data.summary.total_gst);
+        document.getElementById('statAvg').textContent = formatCurrencyRound(data.summary.avg_invoice_value);
+
+        // Top Products
+        const topBody = document.getElementById('topProductsBody');
+        if (data.topProducts.length === 0) {
+            topBody.innerHTML = '<tr><td colspan="5" class="text-center" style="padding:40px;">No sales data yet</td></tr>';
+        } else {
+            topBody.innerHTML = data.topProducts.map((p, i) => `
+                <tr>
+                    <td><span class="badge badge-accent">#${i + 1}</span></td>
+                    <td style="text-align:left; font-weight:500;">${p.product_name}</td>
+                    <td>${p.total_boxes_sold}</td>
+                    <td>₹${parseFloat(p.total_amount).toFixed(2)}</td>
+                    <td>${p.invoice_count}</td>
+                </tr>
+            `).join('');
+        }
+
+        // Daily breakdown
+        const dailyBody = document.getElementById('dailyBody');
+        if (data.dailySales.length === 0) {
+            dailyBody.innerHTML = '<tr><td colspan="3" class="text-center" style="padding:40px;">No sales data yet</td></tr>';
+        } else {
+            dailyBody.innerHTML = data.dailySales.map(d => `
+                <tr>
+                    <td>${d.date}</td>
+                    <td>${d.invoices}</td>
+                    <td style="font-weight:600;">₹${parseFloat(d.revenue).toLocaleString('en-IN')}</td>
+                </tr>
+            `).join('');
+        }
+
+        // Reload invoices with filter
+        currentPage = 1;
+        loadInvoices();
+    } catch (err) {
+        showToast('Error loading report: ' + err.message, 'error');
+    }
+}
+
+async function loadInvoices() {
+    const search = document.getElementById('invoiceSearch')?.value || '';
+    const from = document.getElementById('dateFrom').value;
+    const to = document.getElementById('dateTo').value;
+
+    let url = `/api/invoices?page=${currentPage}&limit=15`;
+    if (search) url += `&search=${encodeURIComponent(search)}`;
+    if (from) url += `&from=${formatDateForAPI(from)}`;
+    if (to) url += `&to=${formatDateForAPI(to)}`;
+
+    try {
+        const data = await API.get(url);
+        totalPages = data.pagination.pages;
+
+        const tbody = document.getElementById('invoiceListBody');
+
+        if (data.invoices.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="7" class="text-center" style="padding:40px; color:var(--text-muted);">No invoices found</td></tr>';
+            document.getElementById('paginationBar').style.display = 'none';
+            return;
+        }
+
+        tbody.innerHTML = data.invoices.map(inv => `
+            <tr>
+                <td><span class="badge badge-accent">${inv.invoice_no}</span></td>
+                <td>${inv.date}</td>
+                <td style="font-weight:600;">${inv.customer_name}</td>
+                <td>${inv.customer_phone || '—'}</td>
+                <td>—</td>
+                <td style="font-weight:700; color:var(--green);">₹${parseFloat(inv.total).toLocaleString('en-IN')}</td>
+                <td>
+                    <button class="btn btn-ghost" onclick="viewInvoiceDetail(${inv.id})" title="View Details">👁️</button>
+                    <button class="btn btn-ghost" id="del-inv-${inv.id}" onclick="deleteInvoice(${inv.id})" title="Delete Invoice completely" style="margin-left:8px;">🗑️</button>
+                </td>
+            </tr>
+        `).join('');
+
+        // Pagination
+        const bar = document.getElementById('paginationBar');
+        bar.style.display = totalPages > 1 ? 'flex' : 'none';
+        document.getElementById('paginationInfo').textContent = `Page ${currentPage} of ${totalPages} (${data.pagination.total} invoices)`;
+        document.getElementById('prevBtn').disabled = currentPage <= 1;
+        document.getElementById('nextBtn').disabled = currentPage >= totalPages;
+    } catch (err) {
+        showToast('Error loading invoices: ' + err.message, 'error');
+    }
+}
+
+function changePage(delta) {
+    currentPage += delta;
+    if (currentPage < 1) currentPage = 1;
+    if (currentPage > totalPages) currentPage = totalPages;
+    loadInvoices();
+}
+
+function searchInvoices() {
+    currentPage = 1;
+    loadInvoices();
+}
+
+async function viewInvoiceDetail(id) {
+    try {
+        const inv = await API.get(`/api/invoices/${id}`);
+        document.getElementById('detailModalTitle').textContent = `Invoice ${inv.invoice_no}`;
+        
+        let itemsHtml = inv.items.map((item, i) => `
+            <tr>
+                <td>${i + 1}</td>
+                <td style="text-align:left;">${item.product_name}</td>
+                <td>${item.hsn_code || '21050000'}</td>
+                <td>${item.net_qty}</td>
+                <td>${item.pcs}</td>
+                <td>${item.boxes}</td>
+                <td>₹${item.rate.toFixed(2)}</td>
+                <td style="font-weight:600;">₹${item.amount.toFixed(2)}</td>
+            </tr>
+        `).join('');
+
+        document.getElementById('detailModalContent').innerHTML = `
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:20px;">
+                <div><span style="color:var(--text-muted); font-size:12px;">DATE</span><br><strong>${inv.date}</strong></div>
+                <div><span style="color:var(--text-muted); font-size:12px;">CUSTOMER</span><br><strong>${inv.customer_name}</strong></div>
+                <div><span style="color:var(--text-muted); font-size:12px;">PHONE</span><br>${inv.customer_phone || 'N/A'}</div>
+                <div><span style="color:var(--text-muted); font-size:12px;">GSTIN</span><br>${inv.customer_gstin || 'N/A'}</div>
+            </div>
+            <div class="table-container">
+                <table>
+                    <thead><tr><th>#</th><th>Product</th><th>HSN/SAC</th><th>Qty</th><th>Pcs</th><th>Box</th><th>Rate</th><th>Amount</th></tr></thead>
+                    <tbody>${itemsHtml}</tbody>
+                </table>
+            </div>
+            <div style="margin-top:16px; text-align:right;">
+                <p>Subtotal: ₹${inv.subtotal.toFixed(2)}</p>
+                <p>CGST (2.5%): ₹${inv.cgst.toFixed(2)}</p>
+                <p>SGST (2.5%): ₹${inv.sgst.toFixed(2)}</p>
+                <p style="font-size:20px; font-weight:800; color:var(--green); margin-top:8px;">Total: ₹${parseFloat(inv.total).toLocaleString('en-IN')}</p>
+            </div>
+        `;
+
+        document.getElementById('invoiceDetailModal').style.display = '';
+    } catch (err) {
+        showToast('Error loading invoice: ' + err.message, 'error');
+    }
+}
+
+function closeDetailModal() {
+    document.getElementById('invoiceDetailModal').style.display = 'none';
+}
+
+async function deleteInvoice(id) {
+    const btn = document.getElementById(`del-inv-${id}`);
+    
+    if (btn.dataset.confirming !== 'true') {
+        btn.dataset.confirming = 'true';
+        btn.innerHTML = '⚠️ Confirm?';
+        btn.style.color = '#ef4444';
+        
+        setTimeout(() => {
+            if (btn) {
+                btn.dataset.confirming = 'false';
+                btn.innerHTML = '🗑️';
+                btn.style.color = '';
+            }
+        }, 3000);
+        return;
+    }
+
+    btn.innerHTML = '⏳...';
+    btn.disabled = true;
+    try {
+        await API.delete(`/api/invoices/${id}`);
+        showToast('Invoice deleted and stock restored!', 'success');
+        loadInvoices();
+        loadReport();
+    } catch (err) {
+        showToast(err.message || 'Failed to delete invoice', 'error');
+        btn.innerHTML = '🗑️';
+        btn.disabled = false;
+        btn.dataset.confirming = 'false';
+        btn.style.color = '';
+    }
+}
+
+async function exportExcel() {
+    const from = document.getElementById('dateFrom').value;
+    const to = document.getElementById('dateTo').value;
+    let url = '/api/sales/export?';
+    if (from) url += `from=${formatDateForAPI(from)}&`;
+    if (to) url += `to=${formatDateForAPI(to)}&`;
+    
+    try {
+        const token = localStorage.getItem('ledgerly_token');
+        const res = await fetch(url, {
+            headers: { 'Authorization': `Bearer ${token}` }
+        });
+        if (!res.ok) throw new Error('Export failed');
+        
+        const blob = await res.blob();
+        const downloadUrl = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = downloadUrl;
+        a.download = `Sales_Report_${new Date().toISOString().split('T')[0]}.xlsx`;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        window.URL.revokeObjectURL(downloadUrl);
+    } catch(err) {
+        showToast(err.message, 'error');
+    }
+}
+
+async function exportGstr1Json() {
+    const from = document.getElementById('dateFrom').value;
+    const to = document.getElementById('dateTo').value;
+    let url = '/api/sales/export/gstr1?';
+    if (from) url += `from=${formatDateForAPI(from)}&`;
+    if (to) url += `to=${formatDateForAPI(to)}&`;
+    
+    document.querySelector('button[onclick="exportGstr1Json()"]').textContent = '⏳ Compiling JSON...';
+
+    try {
+        const token = localStorage.getItem('ledgerly_token');
+        const res = await fetch(url, {
+            headers: { 'Authorization': `Bearer ${token}` }
+        });
+        if (!res.ok) throw new Error('Failed to compile Portal JSON');
+        
+        const blob = await res.blob();
+        const downloadUrl = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = downloadUrl;
+        a.download = `GSTR1_Export_${new Date().toISOString().split('T')[0]}.json`;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        window.URL.revokeObjectURL(downloadUrl);
+        showToast('GST Portal JSON Generated successfully!', 'success');
+    } catch(err) {
+        showToast(err.message, 'error');
+    } finally {
+        document.querySelector('button[onclick="exportGstr1Json()"]').textContent = '⚡ Export Portal JSON';
+    }
+}
+
+function formatDateForAPI(dateStr) {
+    // Convert YYYY-MM-DD to DD/MM/YYYY for our date format
+    if (!dateStr) return '';
+    const parts = dateStr.split('-');
+    return `${parts[2]}/${parts[1]}/${parts[0]}`;
+}
+
+function switchSalesTab(tab) {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    event.target.classList.add('active');
+    document.getElementById('tab-invoices').style.display = tab === 'invoices' ? '' : 'none';
+    document.getElementById('tab-topProducts').style.display = tab === 'topProducts' ? '' : 'none';
+    document.getElementById('tab-daily').style.display = tab === 'daily' ? '' : 'none';
+}
+
+// Close modals on overlay click
+document.addEventListener('click', (e) => {
+    if (e.target.classList.contains('modal-overlay')) {
+        e.target.style.display = 'none';
+    }
+});
+</script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js').catch(err => console.log('SW failed: ', err));
+            });
+        }
+    </script>
+</body>
+</html>

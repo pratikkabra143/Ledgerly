@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script src="/js/auth.js"></script>
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#10b981">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Purchases — Ledgerly</title>
+    <link rel="icon" type="image/png" href="/icon.png">
+    <meta name="description" content="Manage inward stock purchases and ITC ledgers with Ledgerly Enterprise">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-inner">
+            <a href="/" class="nav-brand">
+                <img src="/icon.png" class="nav-logo" alt="Logo">
+                <div class="nav-divider"></div>
+                <div class="nav-brand-content">
+                    <div class="nav-brand-text">Ledger<span class="brand-gradient">ly</span></div>
+                    <div class="nav-brand-sub">GST INVOICING <span class="dot">•</span> INVENTORY <span class="dot">•</span> COMPLIANCE</div>
+                </div>
+            </a>
+            <ul class="nav-links">
+                <li><a href="/"><span class="nav-icon">📄</span> <span>Invoice</span></a></li>
+                <li><a href="/inventory.html"><span class="nav-icon">📦</span> <span>Inventory</span></a></li>
+                <li><a href="/sales.html"><span class="nav-icon">📊</span> <span>Sales</span></a></li>
+                <li><a href="/purchases-registry.html" class="active"><span class="nav-icon">📖</span>
+                        <span>Purchases</span></a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="page-container">
+        <div class="page-header flex justify-between items-center" style="flex-wrap:wrap; gap:16px;">
+            <div>
+                <h1 class="page-title">Purchases</h1>
+            </div>
+            <div class="filter-toolbar">
+                <input type="date" id="dateFrom" class="form-input">
+                <input type="date" id="dateTo" class="form-input">
+                <button class="btn btn-primary" onclick="loadPurchases()">Apply Filter</button>
+                <div class="divider-v"></div>
+                <span style="font-size: 11px; color: var(--text-muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Export:</span>
+                <button class="btn btn-outline" onclick="exportPurchasesExcel()">📥 Excel (GSTR-2)</button>
+                <button class="btn btn-outline" onclick="exportGstr2Json()" style="border-color:var(--accent); color:var(--accent);">⚡ Portal JSON</button>
+                <div class="divider-v"></div>
+                <button class="btn btn-success" onclick="openAddPurchaseModal()">➕ Add Inward Stock</button>
+            </div>
+        </div>
+
+        <!-- Summary Cards -->
+        <div class="stats-grid">
+            <div class="stat-card accent">
+                <div class="stat-label">Total Purchases</div>
+                <div class="stat-value" id="statPurchases">—</div>
+            </div>
+            <div class="stat-card green">
+                <div class="stat-label">Total Spend</div>
+                <div class="stat-value" id="statSpend">—</div>
+            </div>
+            <div class="stat-card cyan">
+                <div class="stat-label">Total Boxes Inward</div>
+                <div class="stat-value" id="statBoxes">—</div>
+            </div>
+        </div>
+
+        <!-- Recent Purchases Tab -->
+        <div id="tab-purchases">
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Date</th>
+                            <th>Supplier / Manufacturer</th>
+                            <th>Total Boxes</th>
+                            <th>Amount</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="purchaseListBody">
+                        <tr>
+                            <td colspan="6" class="text-center" style="padding:40px;">Loading...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Purchase Detail Modal -->
+    <div class="modal-overlay" id="purchaseDetailModal" style="display:none;">
+        <div class="modal" style="max-width:700px;">
+            <h2 class="modal-title" id="detailModalTitle">Purchase Details</h2>
+            <div id="detailModalContent"></div>
+            <div class="modal-actions">
+                <button class="btn btn-outline" onclick="closeDetailModal()">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Purchase Modal -->
+    <div class="modal-overlay" id="addPurchaseModal" style="display:none;">
+        <div class="modal" style="max-width:800px; max-height: 90vh; overflow-y: auto;">
+            <h2 class="modal-title">📥 Add Inward Stock</h2>
+            <div class="form-row">
+                <div class="form-group" style="max-width:200px;">
+                    <label class="form-label">Purchase Date *</label>
+                    <input type="date" id="purchaseDate" class="form-input">
+                </div>
+            </div>
+
+            <div class="mt-24 mb-16 flex justify-between items-center">
+                <h3>Products</h3>
+                <button class="btn btn-outline" onclick="addProductRow()">+ Add Row</button>
+            </div>
+
+            <div id="productRows" style="display:flex; flex-direction:column; gap:8px;"></div>
+
+            <div class="mt-24"
+                style="background:var(--bg-secondary); padding:16px; border-radius:8px; text-align:right;">
+                <div style="font-size:14px; color:var(--text-muted);">Total Boxes: <span id="liveTotalBoxes"
+                        style="color:var(--text-color); font-weight:600; font-size:16px;">0</span></div>
+                <div style="font-size:14px; color:var(--text-muted); margin-top:4px;">Total Cost: <span
+                        id="liveTotalAmount" style="color:var(--green); font-weight:700; font-size:24px;">₹0.00</span>
+                </div>
+            </div>
+
+            <div class="modal-actions" style="margin-top:24px;">
+                <button class="btn btn-outline" onclick="closeAddPurchaseModal()">Cancel</button>
+                <button class="btn btn-primary" onclick="savePurchase()" id="savePurchaseBtn">Save Purchase
+                    Bill</button>
+            </div>
+        </div>
+    </div>
+    <datalist id="inventoryList"></datalist>
+
+<footer class="site-footer">
+    <div class="footer-inner">
+            <div class="footer-links">
+                <a href="/legal.html#terms">Terms of Service</a>
+                <a href="/legal.html#privacy">Privacy Policy</a>
+                <a href="/legal.html#security">Security</a>
+                <a href="/legal.html#compliance">GST Compliance</a>
+            </div>
+        <div class="footer-copy">
+            &copy; 2026 Ledgerly Enterprise by Pratik Kabra. All rights reserved.
+        </div>
+    </div>
+</footer>
+
+    <script src="/js/shared.js"></script>
+    <script>
+        // =============================================
+        // PURCHASES REGISTRY LOGIC
+        // =============================================
+
+        let products = [];
+        let rowCounter = 0;
+
+        window.addEventListener('DOMContentLoaded', async () => {
+            loadPurchases();
+            try {
+                products = await API.get('/api/inventory');
+                const dl = document.getElementById('inventoryList');
+                if (dl) dl.innerHTML = products.map(p => `<option value="${p.name}">`).join('');
+            } catch (err) {
+                console.error('Failed to load products for datalist:', err);
+            }
+        });
+
+        async function loadPurchases() {
+            const from = document.getElementById('dateFrom').value;
+            const to = document.getElementById('dateTo').value;
+
+            let url = `/api/purchases?`;
+            if (from) url += `from=${from}&`;
+            if (to) url += `to=${to}&`;
+
+            try {
+                const data = await API.get(url);
+                const tbody = document.getElementById('purchaseListBody');
+
+                if (data.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="6" class="text-center" style="padding:40px; color:var(--text-muted);">No purchases found</td></tr>';
+
+                    document.getElementById('statPurchases').textContent = '0';
+                    document.getElementById('statSpend').textContent = '₹0.00';
+                    document.getElementById('statBoxes').textContent = '0';
+                    return;
+                }
+
+                let totalSpend = 0;
+                let totalBoxes = 0;
+
+                tbody.innerHTML = data.map(p => {
+                    totalSpend += p.total_amount;
+                    totalBoxes += p.total_boxes;
+
+                    return `
+            <tr>
+                <td><span class="badge badge-accent">#${p.id}</span></td>
+                <td>${p.date}</td>
+                <td style="font-weight:600;">${p.supplier_name}</td>
+                <td>${p.total_boxes} boxes</td>
+                <td style="font-weight:700; color:var(--green);">₹${parseFloat(p.total_amount).toLocaleString('en-IN')}</td>
+                <td>
+                    <button class="btn btn-ghost" onclick="viewPurchaseDetail(${p.id})" title="View Details">👁️</button>
+                    <button class="btn btn-ghost" id="del-pur-${p.id}" onclick="deletePurchase(${p.id})" title="Delete Purchase completely" style="margin-left:8px;">🗑️</button>
+                </td>
+            </tr>
+            `;
+                }).join('');
+
+                // Update stats
+                document.getElementById('statPurchases').textContent = data.length;
+                document.getElementById('statSpend').textContent = formatCurrencyRound(totalSpend);
+                document.getElementById('statBoxes').textContent = totalBoxes;
+
+            } catch (err) {
+                showToast('Error loading purchases: ' + err.message, 'error');
+            }
+        }
+
+        async function exportPurchasesExcel() {
+            const from = document.getElementById('dateFrom').value;
+            const to = document.getElementById('dateTo').value;
+            let url = '/api/purchases/export?';
+            if (from) url += `from=${from}&`;
+            if (to) url += `to=${to}&`;
+            
+            try {
+                const token = localStorage.getItem('ledgerly_token');
+                const res = await fetch(url, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                if (!res.ok) throw new Error('Export failed');
+                
+                const blob = await res.blob();
+                const downloadUrl = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = downloadUrl;
+                a.download = `Purchases_ITC_Export_${new Date().toISOString().split('T')[0]}.xlsx`;
+                document.body.appendChild(a);
+                a.click();
+                a.remove();
+                window.URL.revokeObjectURL(downloadUrl);
+            } catch(err) {
+                showToast(err.message, 'error');
+            }
+        }
+
+        async function exportGstr2Json() {
+            const from = document.getElementById('dateFrom').value;
+            const to = document.getElementById('dateTo').value;
+            let url = '/api/purchases/export/gstr2?';
+            if (from) url += `from=${from}&`;
+            if (to) url += `to=${to}&`;
+            
+            document.querySelector('button[onclick="exportGstr2Json()"]').textContent = '⏳ Compiling JSON...';
+
+            try {
+                const token = localStorage.getItem('ledgerly_token');
+                const res = await fetch(url, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                if (!res.ok) throw new Error('Failed to compile Portal JSON');
+                
+                const blob = await res.blob();
+                const downloadUrl = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = downloadUrl;
+                a.download = `GSTR2_Export_${new Date().toISOString().split('T')[0]}.json`;
+                document.body.appendChild(a);
+                a.click();
+                a.remove();
+                window.URL.revokeObjectURL(downloadUrl);
+                showToast('GST Portal JSON Generated successfully!', 'success');
+            } catch(err) {
+                showToast(err.message, 'error');
+            } finally {
+                document.querySelector('button[onclick="exportGstr2Json()"]').textContent = '⚡ Export Portal JSON';
+            }
+        }
+
+        async function viewPurchaseDetail(id) {
+            try {
+                const p = await API.get(`/api/purchases/${id}`);
+                document.getElementById('detailModalTitle').textContent = `Purchase #${p.id}`;
+
+                let itemsHtml = p.items.map((item, i) => `
+            <tr>
+                <td>${i + 1}</td>
+                <td style="text-align:left;">${item.product_name}</td>
+                <td>${item.hsn_code || '21050000'}</td>
+                <td>${item.boxes}</td>
+                <td>₹${item.purchase_rate.toFixed(2)}</td>
+                <td style="font-weight:600;">₹${item.amount.toFixed(2)}</td>
+            </tr>
+        `).join('');
+
+                document.getElementById('detailModalContent').innerHTML = `
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:20px;">
+                <div><span style="color:var(--text-muted); font-size:12px;">DATE</span><br><strong>${p.date}</strong></div>
+                <div><span style="color:var(--text-muted); font-size:12px;">SUPPLIER</span><br><strong>${p.supplier_name}</strong></div>
+            </div>
+            <div class="table-container">
+                <table>
+                    <thead><tr><th>#</th><th>Product</th><th>HSN/SAC</th><th>Boxes</th><th>Purchase Rate</th><th>Amount</th></tr></thead>
+                    <tbody>${itemsHtml}</tbody>
+                </table>
+            </div>
+            <div style="margin-top:16px; text-align:right;">
+                <p style="font-size:20px; font-weight:800; color:var(--green); margin-top:8px;">Total Paid: ₹${parseFloat(p.total_amount).toLocaleString('en-IN')}</p>
+            </div>
+        `;
+
+                document.getElementById('purchaseDetailModal').style.display = '';
+            } catch (err) {
+                showToast('Error loading purchase: ' + err.message, 'error');
+            }
+        }
+
+        function closeDetailModal() {
+            document.getElementById('purchaseDetailModal').style.display = 'none';
+        }
+
+        async function deletePurchase(id) {
+            const btn = document.getElementById(`del-pur-${id}`);
+            if (btn.dataset.confirming !== 'true') {
+                btn.dataset.confirming = 'true';
+                btn.innerHTML = '⚠️ Confirm?';
+                btn.style.color = '#ef4444';
+                setTimeout(() => {
+                    if (btn) {
+                        btn.dataset.confirming = 'false';
+                        btn.innerHTML = '🗑️';
+                        btn.style.color = '';
+                    }
+                }, 3000);
+                return;
+            }
+            btn.innerHTML = '⏳...';
+            btn.disabled = true;
+            try {
+                await API.delete(`/api/purchases/${id}`);
+                showToast('Purchase deleted and stock reverted!', 'success');
+                loadPurchases();
+            } catch (err) {
+                showToast(err.message || 'Failed to delete purchase', 'error');
+                btn.innerHTML = '🗑️';
+                btn.disabled = false;
+                btn.dataset.confirming = 'false';
+                btn.style.color = '';
+            }
+        }
+
+        // =============================================
+        // ADD PURCHASE MODAL LOGIC
+        // =============================================
+
+        function openAddPurchaseModal() {
+            // Reset form
+            document.getElementById('purchaseDate').value = new Date().toISOString().split('T')[0];
+            document.getElementById('productRows').innerHTML = '';
+            recalculate();
+
+            // Add 3 default rows
+            addProductRow();
+            addProductRow();
+            addProductRow();
+
+            document.getElementById('addPurchaseModal').style.display = 'flex';
+        }
+
+        function closeAddPurchaseModal() {
+            document.getElementById('addPurchaseModal').style.display = 'none';
+        }
+
+        function addProductRow() {
+            const rowId = rowCounter++;
+            const container = document.getElementById('productRows');
+
+            const div = document.createElement('div');
+            div.className = 'product-row flex gap-12 items-center';
+            div.id = `row-${rowId}`;
+            div.innerHTML = `
+        <div style="flex:3;">
+            <input list="inventoryList" class="form-input p-name" placeholder="Search product..." 
+                   onchange="onProductSelect(${rowId})" oninput="onProductSelect(${rowId})">
+        </div>
+        <div style="width: 85px; flex: none;">
+            <input type="number" class="form-input p-box" placeholder="Qty" min="0" step="0.5" 
+                   oninput="recalculate()" style="text-align: center; padding: 10px 4px;">
+        </div>
+        <span class="stock-badge" id="stock-${rowId}" style="display:none;"></span>
+        <button class="btn-remove-row" onclick="removeRow(${rowId})" title="Remove">✕</button>
+    `;
+            container.appendChild(div);
+        }
+
+        function removeRow(rowId) {
+            const row = document.getElementById(`row-${rowId}`);
+            if (row) {
+                row.remove();
+                recalculate();
+            }
+        }
+
+        function onProductSelect(rowId) {
+            const row = document.getElementById(`row-${rowId}`);
+            if (!row) return;
+
+            const name = row.querySelector('.p-name').value;
+            const product = products.find(p => p.name === name);
+            const badge = document.getElementById(`stock-${rowId}`);
+
+            if (product) {
+                const stock = product.stock_boxes || 0;
+                badge.style.display = '';
+                if (stock > 5) {
+                    badge.className = 'stock-badge in-stock';
+                    badge.textContent = `${stock} boxes`;
+                } else if (stock > 0) {
+                    badge.className = 'stock-badge low-stock';
+                    badge.textContent = `${stock} boxes`;
+                } else {
+                    badge.className = 'stock-badge no-stock';
+                    badge.textContent = 'No stock';
+                }
+            } else {
+                badge.style.display = 'none';
+            }
+
+            recalculate();
+        }
+
+        function recalculate() {
+            let totalBoxes = 0;
+            let totalAmount = 0;
+
+            document.querySelectorAll('.product-row').forEach(row => {
+                const name = row.querySelector('.p-name').value;
+                const boxes = parseFloat(row.querySelector('.p-box').value) || 0;
+                const product = products.find(p => p.name === name);
+
+                if (product && boxes > 0) {
+                    const rate = product.purchase_rate || 0;
+                    totalBoxes += boxes;
+                    totalAmount += boxes * rate;
+                }
+            });
+
+            totalAmount = Math.round(totalAmount);
+
+            document.getElementById('liveTotalBoxes').textContent = totalBoxes;
+            document.getElementById('liveTotalAmount').textContent = formatCurrency(totalAmount);
+        }
+
+        async function savePurchase() {
+            const dateStr = document.getElementById('purchaseDate').value;
+            const supplierName = "SANMATI MILK PRODUCTS PRIVATE LIMITED 2025-26";
+
+            if (!dateStr) {
+                showToast('Purchase date is required!', 'warning');
+                return;
+            }
+
+            let totalBoxes = 0;
+            let totalAmount = 0;
+            const items = [];
+
+            document.querySelectorAll('.product-row').forEach(row => {
+                const name = row.querySelector('.p-name').value;
+                const boxes = parseFloat(row.querySelector('.p-box').value) || 0;
+                const product = products.find(p => p.name === name);
+
+                if (product && boxes > 0) {
+                    const rate = product.purchase_rate || 0;
+                    const amount = boxes * rate;
+                    totalBoxes += boxes;
+                    totalAmount += amount;
+
+                    items.push({
+                        product_id: product.id,
+                        product_name: name,
+                        boxes: boxes,
+                        purchase_rate: rate,
+                        amount: amount
+                    });
+                }
+            });
+
+            totalAmount = Math.round(totalAmount);
+
+            if (items.length === 0) {
+                showToast('Add at least one product with boxes > 0.', 'warning');
+                return;
+            }
+
+            const payload = {
+                supplier_name: supplierName,
+                date: dateStr,
+                total_boxes: totalBoxes,
+                total_amount: totalAmount,
+                items
+            };
+
+            const btn = document.getElementById('savePurchaseBtn');
+            btn.disabled = true;
+            btn.textContent = 'Saving...';
+
+            try {
+                await API.post('/api/purchases', payload);
+                closeAddPurchaseModal();
+                showToast('Purchase bill saved successfully!', 'success');
+
+                // Refresh products list to get new stock
+                products = await API.get('/api/inventory');
+
+                // Refresh purchases list
+                loadPurchases();
+            } catch (err) {
+                showToast(err.message || 'Failed to save purchase', 'error');
+            } finally {
+                btn.disabled = false;
+                btn.textContent = 'Save Purchase Bill';
+            }
+        }
+
+        // Close modals on overlay click
+        document.addEventListener('click', (e) => {
+            if (e.target.classList.contains('modal-overlay')) {
+                e.target.style.display = 'none';
+            }
+        });
+    </script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js').catch(err => console.log('SW failed: ', err));
+            });
+        }
+    </script>
+</body>
+
+</html>

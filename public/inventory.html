@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="/js/auth.js"></script>
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#10b981">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventory — Ledgerly</title>
+    <link rel="icon" type="image/png" href="/icon.png">
+    <meta name="description" content="Manage products, live stock levels, and purchase costs with Ledgerly Enterprise">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="navbar">
+    <div class="nav-inner">
+        <a href="/" class="nav-brand">
+                <img src="/icon.png" class="nav-logo" alt="Logo">
+            <div class="nav-divider"></div>
+            <div class="nav-brand-content">
+                <div class="nav-brand-text">Ledger<span class="brand-gradient">ly</span></div>
+                <div class="nav-brand-sub">GST INVOICING <span class="dot">•</span> INVENTORY <span class="dot">•</span> COMPLIANCE</div>
+            </div>
+        </a>
+        <ul class="nav-links">
+            <li><a href="/"><span class="nav-icon">📄</span> <span>Invoice</span></a></li>
+            <li><a href="/inventory.html" class="active"><span class="nav-icon">📦</span> <span>Inventory</span></a></li>
+            <li><a href="/sales.html"><span class="nav-icon">📊</span> <span>Sales</span></a></li>
+            <li><a href="/purchases-registry.html"><span class="nav-icon">📖</span> <span>Purchases</span></a></li>
+        </ul>
+    </div>
+</nav>
+
+<div class="page-container">
+    <div class="page-header flex justify-between items-center">
+        <div>
+            <h1 class="page-title">Inventory</h1>
+        </div>
+        <button class="btn btn-primary" onclick="openAddProductModal()">+ Add New Product</button>
+    </div>
+
+    <!-- Summary Dashboard -->
+    <div class="stats-grid" id="summaryGrid">
+        <div class="stat-card accent">
+            <div class="stat-label">Total Products</div>
+            <div class="stat-value" id="statProducts">—</div>
+        </div>
+        <div class="stat-card green">
+            <div class="stat-label">Total Stock (Boxes)</div>
+            <div class="stat-value" id="statBoxes">—</div>
+        </div>
+        <div class="stat-card orange">
+            <div class="stat-label">Total Purchase Cost</div>
+            <div class="stat-value" id="statPurchase">—</div>
+            <div class="stat-sub">Cost of current inventory</div>
+        </div>
+        <div class="stat-card cyan">
+            <div class="stat-label">Estimated Selling Value</div>
+            <div class="stat-value" id="statSelling">—</div>
+            <div class="stat-sub">With 5% GST included</div>
+        </div>
+        <div class="stat-card green">
+            <div class="stat-label">Estimated Profit</div>
+            <div class="stat-value" id="statProfit">—</div>
+            <div class="stat-sub">Selling value − Purchase cost</div>
+        </div>
+        <div class="stat-card red">
+            <div class="stat-label">Low Stock Items</div>
+            <div class="stat-value" id="statLowStock">—</div>
+            <div class="stat-sub">≤ 2 boxes remaining</div>
+        </div>
+    </div>
+
+    <!-- Tabs -->
+    <div class="tabs">
+        <button class="tab active" onclick="switchTab('stock')">📦 Stock Management</button>
+        <button class="tab" onclick="switchTab('products')">📋 Product List</button>
+        <button class="tab" onclick="switchTab('transactions')">📝 Transaction Log</button>
+    </div>
+
+    <!-- Search & Filter -->
+    <div class="flex gap-12 mb-24" style="flex-wrap:wrap;">
+        <div class="search-bar" style="flex:1; min-width:250px;">
+            <input type="text" id="searchInput" placeholder="Search products..." oninput="filterInventory()">
+        </div>
+        <select class="form-select" id="categoryFilter" style="width:200px;" onchange="filterInventory()">
+            <option value="">All Categories</option>
+        </select>
+        <select class="form-select" id="stockFilter" style="width:180px;" onchange="filterInventory()">
+            <option value="">All Stock Levels</option>
+            <option value="in">In Stock (&gt;5)</option>
+            <option value="low">Low Stock (1-5)</option>
+            <option value="out">Out of Stock (0)</option>
+        </select>
+    </div>
+
+    <!-- Stock Management Tab -->
+    <div id="tab-stock">
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Category</th>
+                        <th>Net Qty</th>
+                        <th>Pcs/Box</th>
+                        <th>Stock (Boxes)</th>
+                        <th>Purchase Rate</th>
+                        <th>Selling Rate</th>
+                        <th>Stock Value</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="stockTableBody">
+                    <tr><td colspan="9" class="text-center" style="padding:40px; color:var(--text-muted);">Loading...</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Product List Tab -->
+    <div id="tab-products" style="display:none;">
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Product Name</th>
+                        <th>Net Qty</th>
+                        <th>Pcs/Box</th>
+                        <th>Selling Rate (₹)</th>
+                        <th>Purchase Rate (₹)</th>
+                        <th>Category</th>
+                        <th>HSN Code</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="productTableBody"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Transaction Log Tab -->
+    <div id="tab-transactions" style="display:none;">
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date & Time</th>
+                        <th>Product</th>
+                        <th>Type</th>
+                        <th>Boxes</th>
+                        <th>Purchase Rate</th>
+                        <th>Reference</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="transactionTableBody"></tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Add/Edit Product Modal -->
+<div class="modal-overlay" id="productModal" style="display:none;">
+    <div class="modal">
+        <h2 class="modal-title" id="modalTitle">Add New Product</h2>
+        <input type="hidden" id="editProductId">
+        <div class="form-group">
+            <label class="form-label">Product Name *</label>
+            <input type="text" id="modalName" class="form-input" placeholder="e.g. 100 ML Cup Vanilla 12 Pcs (Rs.20)">
+        </div>
+        <div class="form-row">
+            <div class="form-group">
+                <label class="form-label">Category</label>
+                <input type="text" id="modalCategory" class="form-input" placeholder="e.g. Rs.20 Range, Family Pack">
+            </div>
+            <div class="form-group">
+                <label class="form-label">HSN Code</label>
+                <input type="text" id="modalHsnCode" class="form-input" placeholder="e.g. 21050000">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Net Quantity *</label>
+                <input type="text" id="modalNetQty" class="form-input" placeholder="e.g. 100 ML">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group">
+                <label class="form-label">Pcs Per Box</label>
+                <input type="number" id="modalPcs" class="form-input" placeholder="e.g. 12" min="1">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Selling Rate (₹/box)</label>
+                <input type="number" id="modalSellingRate" class="form-input" placeholder="Pre-GST rate" step="0.01">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Purchase Rate (₹/box)</label>
+                <input type="number" id="modalPurchaseRate" class="form-input" placeholder="Cost price" step="0.01">
+            </div>
+        </div>
+        <div class="modal-actions">
+            <button class="btn btn-outline" onclick="closeModal()">Cancel</button>
+            <button class="btn btn-primary" onclick="saveProduct()">Save Product</button>
+        </div>
+    </div>
+</div>
+
+<!-- Update Stock Modal -->
+<div class="modal-overlay" id="adjustStockModal" style="display:none;">
+    <div class="modal modal-sm">
+        <h2 class="modal-title">📦 Update Stock</h2>
+        <p style="color:var(--text-secondary); margin-bottom:8px;" id="adjustStockProductName"></p>
+        <p style="color:var(--text-muted); margin-bottom:20px; font-size:13px;">Current stock: <strong id="adjustStockCurrent" style="color:var(--text-color);">0</strong> boxes</p>
+        <input type="hidden" id="adjustStockProductId">
+        
+        <div class="form-row" style="margin-bottom:12px;">
+            <div class="form-group" style="flex:1;">
+                <label class="form-label">Add / Remove (+/-)</label>
+                <input type="number" id="adjustStockRelative" class="form-input" placeholder="+5 or -2" step="0.5" oninput="calculateAbsoluteStock()">
+            </div>
+        </div>
+        <div style="text-align:center; color:var(--text-muted); margin-bottom:12px; font-size:12px;">OR</div>
+        <div class="form-group">
+            <label class="form-label">New Total Stock</label>
+            <input type="number" id="adjustStockBoxes" class="form-input" placeholder="Absolute stock" min="0" step="0.5" oninput="calculateRelativeStock()">
+        </div>
+        
+        <div class="modal-actions" style="margin-top:24px;">
+            <button class="btn btn-outline" onclick="closeAdjustModal()">Cancel</button>
+            <button class="btn btn-primary" onclick="submitAdjustStock()">Save Stock</button>
+        </div>
+    </div>
+</div>
+
+<footer class="site-footer">
+    <div class="footer-inner">
+        <div class="footer-links">
+            <a href="/legal.html#terms">Terms of Service</a>
+            <a href="/legal.html#privacy">Privacy Policy</a>
+            <a href="/legal.html#security">Security</a>
+            <a href="/legal.html#compliance">GST Compliance</a>
+        </div>
+        <div class="footer-copy">
+            &copy; 2026 Ledgerly Enterprise by Pratik Kabra. All rights reserved.
+        </div>
+    </div>
+</footer>
+
+<script src="/js/shared.js"></script>
+<script src="/js/inventory.js"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js').catch(err => console.log('SW failed: ', err));
+            });
+        }
+    </script>
+</body>
+</html>
